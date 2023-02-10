@@ -44,7 +44,7 @@ describe('testing gameboard functions', () => {
         expect(array[1][1]).toBe(2);
     });
 
-    test('return space function', () => {
+    test('test returnSpace function', () => {
         let space = mockboard.returnSpace([1,3]);
         expect(space.x).toBe(1);
         expect(space.y).toBe(3);
@@ -55,5 +55,10 @@ describe('testing gameboard functions', () => {
         mockboard.placeShip(mockship, [1,1], 'vertical');
         expect(mockboard.board[0].contents).toBe(mockship);
         expect(mockboard.board[10].contents).toBe(mockship);
+    })
+
+    test('test attack', () => {
+        mockboard.receiveAttack([5,3]);
+        expect(mockboard.returnSpace([5,3]).hit).toBe(true);
     })
 });

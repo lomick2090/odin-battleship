@@ -6,7 +6,7 @@ let gameboard = () => {
         for (let i = 1; i<= 10; i++) {
             for (let j = 1; j <= 10; j++) {
                 let space = {
-                    contents: 'empty',
+                    contents: null,
                     hit: false,
                     x: i,
                     y: j
@@ -15,7 +15,7 @@ let gameboard = () => {
             }
         }
         return board;
-    }
+    };
 
     let board = createBoard();
 
@@ -34,7 +34,7 @@ let gameboard = () => {
         });
 
         return answer;
-    }
+    };
 
     function placeShip(ship, coordinates, orientation) {
         let space = returnSpace(coordinates);
@@ -53,13 +53,27 @@ let gameboard = () => {
             }
         }
 
-    }
+    };
+
+    function receiveAttack(coordinates) {
+        let space = returnSpace(coordinates);
+        if (space.hit == false) {
+            space.hit = true;
+        } else {
+            console.log("error, space already attacked");
+            return;
+        };
+
+        if (space.contents) {
+            space.contents.hit();
+        };
+    };
 
     return {
         board,
         returnSpace,
         placeShip,
-
+        receiveAttack,
     }
 };
 
