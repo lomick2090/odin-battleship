@@ -40,7 +40,20 @@ describe('testing gameboard functions', () => {
         mockboard.board.forEach(space => array.push([space.x, space.y]))
         expect(array[0][0]).toBe(1);
         expect(array[0][1]).toBe(1);
-        expect(array[1][0]).toBe(2);
-        expect(array[1][1]).toBe(1);
+        expect(array[1][0]).toBe(1);
+        expect(array[1][1]).toBe(2);
     });
+
+    test('return space function', () => {
+        let space = mockboard.returnSpace([1,3]);
+        expect(space.x).toBe(1);
+        expect(space.y).toBe(3);
+    });
+
+    test('test ship placement', () => {
+        let mockship = ship(2);
+        mockboard.placeShip(mockship, [1,1], 'vertical');
+        expect(mockboard.board[0].contents).toBe(mockship);
+        expect(mockboard.board[10].contents).toBe(mockship);
+    })
 });

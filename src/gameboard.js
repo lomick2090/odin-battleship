@@ -1,13 +1,15 @@
+import { ship } from './ship';
+
 let gameboard = () => {
     function createBoard() {
         let board = [];
         for (let i = 1; i<= 10; i++) {
-            for (let j = 1; j <= 100; j++) {
+            for (let j = 1; j <= 10; j++) {
                 let space = {
-                    empty: true,
+                    contents: 'empty',
                     hit: false,
-                    x: j,
-                    y: i
+                    x: i,
+                    y: j
                 }
                 board.push(space)
             }
@@ -15,11 +17,49 @@ let gameboard = () => {
         return board;
     }
 
-
     let board = createBoard();
+
+    function returnSpace(coordinates) {
+        let x = coordinates[0];
+        let y = coordinates[1];
+        let answer;
+
+
+        board.forEach(space => {
+            
+            if (space.x == x && space.y == y) {
+                answer = space;
+                return;
+            }
+        });
+
+        return answer;
+    }
+
+    function placeShip(ship, coordinates, orientation) {
+        let space = returnSpace(coordinates);
+
+        space.contents = ship;
+
+        for (let i = 0; i < ship.shipLength; i++) {
+            if (orientation = 'horizontal') {
+                coordinates[0] = coordinates[0] + 1;
+                space = returnSpace(coordinates);
+                space.contents = ship;
+            } else {
+                coordinates[1] = coordinates[1] + 1;
+                space = returnSpace(coordinates);
+                space.contents = ship;
+            }
+        }
+
+    }
 
     return {
         board,
+        returnSpace,
+        placeShip,
+
     }
 };
 
