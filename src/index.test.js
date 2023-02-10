@@ -1,5 +1,6 @@
 import { ship } from './ship.js';
 import { gameboard } from './gameboard.js';
+import { player } from './player'
 
 
 test('unit test', () => {
@@ -33,7 +34,11 @@ describe('testing ship functions', () => {
 });
 
 describe('testing gameboard functions', () => {
+
     let mockboard = gameboard();
+    afterEach(()=> {
+        mockboard = gameboard();
+    })
 
     test('test gameboard coordinates', () => {
         let array = [];
@@ -61,4 +66,18 @@ describe('testing gameboard functions', () => {
         mockboard.receiveAttack([5,3]);
         expect(mockboard.returnSpace([5,3]).hit).toBe(true);
     })
+
+    test('invalid ship placement', () => {
+        let mockship = ship(2);
+        mockboard.placeShip(mockship, [1,1], 'vertical');
+        expect(mockboard.checkShipPlacement(mockship, [1,1], 'vertical')).toBe(false);
+    });
 });
+
+describe('testing player', () => {
+    let player1 = player()
+    test('check player naming', () => {
+        player1.name = 'bobby';
+        expect(player1.name).toBe('bobby')
+    })
+}); 

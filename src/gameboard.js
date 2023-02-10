@@ -36,21 +36,44 @@ let gameboard = () => {
         return answer;
     };
 
-    function placeShip(ship, coordinates, orientation) {
+    function checkShipPlacement(ship, coordinates, orientation) {
         let space = returnSpace(coordinates);
-
-        space.contents = ship;
+        let answer = true;
 
         for (let i = 0; i < ship.shipLength; i++) {
-            if (orientation = 'horizontal') {
+            if (space.contents != null) {
+                answer = false;
+            }
+            if (orientation == 'horizontal') {
                 coordinates[0] = coordinates[0] + 1;
                 space = returnSpace(coordinates);
-                space.contents = ship;
             } else {
                 coordinates[1] = coordinates[1] + 1;
                 space = returnSpace(coordinates);
-                space.contents = ship;
             }
+        };
+        return answer;
+    }
+
+    function placeShip(ship, coordinates, orientation) {
+        if (checkShipPlacement(ship, coordinates, orientation)) {
+            let space = returnSpace(coordinates);
+            space.contents = ship;
+    
+            for (let i = 0; i < ship.shipLength; i++) {
+                if (orientation == 'horizontal') {
+                    coordinates[0] = coordinates[0] + 1;
+                    space = returnSpace(coordinates);
+                    space.contents = ship;
+                } else {
+                    coordinates[1] = coordinates[1] + 1;
+                    space = returnSpace(coordinates);
+                    space.contents = ship;
+                }
+            }
+        } else {
+            console.log("invalid ship placement");
+            return false;
         }
 
     };
@@ -74,6 +97,7 @@ let gameboard = () => {
         returnSpace,
         placeShip,
         receiveAttack,
+        checkShipPlacement
     }
 };
 
