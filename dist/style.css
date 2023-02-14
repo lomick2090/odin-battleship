@@ -1,0 +1,45 @@
+body {
+    margin:0px;
+    background-color: black;
+}
+
+.header {
+    height: 100px;
+    width: 100vw;
+    background-color: rgb(50, 50, 50);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    margin:0px;
+    color: white;
+}
+
+.game {
+    width:100vw;
+    height: 100vh;
+    background-image:url('background.png');
+    background-size: cover;
+}
+
+.setup {
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.setup > label {
+    font-size: 45px;
+    font-weight: bold;
+}
+
+.setup > input {
+    width: 280px;
+    height: 30px;
+    font-size: 25px;
+    text-align: center;
+}

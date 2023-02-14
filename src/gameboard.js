@@ -19,6 +19,8 @@ let gameboard = () => {
 
     let board = createBoard();
 
+    let ships = [];
+
     function returnSpace(coordinates) {
         let x = coordinates[0];
         let y = coordinates[1];
@@ -40,7 +42,7 @@ let gameboard = () => {
         let space = returnSpace(coordinates);
         let answer = true;
 
-        for (let i = 0; i < ship.shipLength; i++) {
+        for (let i = 1; i < ship.shipLength; i++) {
             if (space.contents != null) {
                 answer = false;
             }
@@ -56,26 +58,21 @@ let gameboard = () => {
     }
 
     function placeShip(ship, coordinates, orientation) {
-        if (checkShipPlacement(ship, coordinates, orientation)) {
-            let space = returnSpace(coordinates);
-            space.contents = ship;
-    
-            for (let i = 0; i < ship.shipLength; i++) {
-                if (orientation == 'horizontal') {
-                    coordinates[0] = coordinates[0] + 1;
-                    space = returnSpace(coordinates);
-                    space.contents = ship;
-                } else {
-                    coordinates[1] = coordinates[1] + 1;
-                    space = returnSpace(coordinates);
-                    space.contents = ship;
-                }
-            }
-        } else {
-            console.log("invalid ship placement");
-            return false;
-        }
+        let space = returnSpace(coordinates);
+        space.contents = ship;
+        ships.push(ship)
 
+        for (let i = 1; i < ship.shipLength; i++) {
+            if (orientation == 'horizontal') {
+                coordinates[0] = coordinates[0] + 1;
+                space = returnSpace(coordinates);
+                space.contents = ship;
+            } else {
+                coordinates[1] = coordinates[1] + 1;
+                space = returnSpace(coordinates);
+                space.contents = ship;
+            }
+        }
     };
 
     function receiveAttack(coordinates) {
@@ -92,12 +89,25 @@ let gameboard = () => {
         };
     };
 
+    function checkGameEnd() {
+        let answer = true;
+        ships.forEach(ship => {
+            if (ship.isSunk == false) {
+            answer = false;
+            }
+        });
+
+        return answer;
+    }
+
     return {
         board,
+        ships,
         returnSpace,
         placeShip,
         receiveAttack,
-        checkShipPlacement
+        checkShipPlacement,
+        checkGameEnd
     }
 };
 

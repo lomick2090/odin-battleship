@@ -59,7 +59,8 @@ describe('testing gameboard functions', () => {
         let mockship = ship(2);
         mockboard.placeShip(mockship, [1,1], 'vertical');
         expect(mockboard.board[0].contents).toBe(mockship);
-        expect(mockboard.board[10].contents).toBe(mockship);
+        expect(mockboard.board[1].contents).toBe(mockship);
+        expect(mockboard.board[2].contents).toBe(null);
     })
 
     test('test attack', () => {
@@ -72,6 +73,30 @@ describe('testing gameboard functions', () => {
         mockboard.placeShip(mockship, [1,1], 'vertical');
         expect(mockboard.checkShipPlacement(mockship, [1,1], 'vertical')).toBe(false);
     });
+
+    test('check validity before placement', () => {
+        let mockship1 = ship(2);
+        let mockship2 = ship(2);
+        mockboard.placeShip(mockship1, [1,1], 'vertical');
+        if (mockboard.checkShipPlacement(mockship2, [1,2], 'horizontal')){
+            mockboard.placeShip(mockship1, [1,2], 'horizontal');
+        }
+        else if (mockboard.checkShipPlacement(mockship2, [1,3], 'horizontal')) {
+            mockboard.placeShip(mockship2, [1,3], 'horizontal');
+        }
+
+        expect(mockboard.returnSpace([1,2]).contents).toBe(mockship1);
+        expect(mockboard.returnSpace([1,3]).contents).toBe(mockship2);
+    })
+
+    test('test game end', () => {
+        let mockship = ship(2);
+        mockboard.placeShip(mockship, [1,1], 'vertical');
+        expect(mockboard.checkGameEnd()).toBe(false);
+        mockboard.receiveAttack([1,1]);
+        mockboard.receiveAttack([1,2]);
+        expect(mockboard.checkGameEnd()).toBe(true);
+    })
 });
 
 describe('testing player', () => {

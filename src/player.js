@@ -1,14 +1,21 @@
 import { gameboard } from './gameboard';
 import { ship } from './ship';
 
-let player = () => {
+let player = (name) => {
     let playerName = '';
-    function attack(coordinates) {
+    let playerboard;
 
+    function attack(coordinates, board) {
+        if (this.playerboard = board) {
+            console.log('cannot attack own board');
+        } else {
+            board.recieveAttack(coordinates);
+        }
     }
 
     return {
         attack,
+        playerboard,
         get name() {
             return playerName;
         },
@@ -19,6 +26,7 @@ let player = () => {
                 playerName = prompt
             }
         },
+        
     }
 }
 
