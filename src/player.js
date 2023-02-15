@@ -2,7 +2,7 @@ import { gameboard } from './gameboard';
 import { ship } from './ship';
 
 let player = (name) => {
-    let playerName = '';
+    let playerName = name;
     let playerboard;
 
     function attack(coordinates, board) {
