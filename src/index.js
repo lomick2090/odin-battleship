@@ -90,7 +90,18 @@ function startGame(name) {
     gameb1 = document.createElement('div');
     gameb1.className = 'gameboard';
 
-    console.log(gameboard1)
+    function addShip()  {
+        if (i < ships.length) {
+            if (gameboard1.checkShipPlacement(ships[i], [this.getAttribute('x'), this.getAttribute('y')], orientation)) {
+                gameboard1.placeShip(ships[i], [this.getAttribute('x'), this.getAttribute('y')], orientation);
+                i++;
+                if (i == ships.length) {
+                    gamePage()
+                }
+            }
+        }
+    };
+
 
     for (let i = 1; i<= 10; i++) {
         for (let j = 1; j <= 10; j++) {
@@ -98,17 +109,7 @@ function startGame(name) {
             newsquare.setAttribute('x', j);
             newsquare.setAttribute('y', i);
             newsquare.className = 'square';
-            newsquare.addEventListener('click', () => {
-                if (i < ships.length) {
-                    if (gameboard1.checkShipPlacement(ships[i], [newsquare.getAttribute('x'), newsquare.getAttribute('y')], orientation)) {
-                        gameboard1.placeShip(ships[i], [newsquare.getAttribute('x'), newsquare.getAttribute('y')], orientation);
-                        i++;
-                        if (i == ships.length) {
-                            gamePage()
-                        }
-                    }
-                }
-            });
+            newsquare.addEventListener('click', () => addShip)
             gameb1.appendChild(newsquare);
         }
     }
