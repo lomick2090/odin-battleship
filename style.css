@@ -1,6 +1,7 @@
 body {
     margin:0px;
     background-color: black;
+
 }
 
 .header {
@@ -22,6 +23,11 @@ h1 {
     height: 100vh;
     background-image:url('background.png');
     background-size: cover;
+    display: grid;
+    gap: 100px;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-items: center;
 }
 
 .setup {
@@ -42,4 +48,20 @@ h1 {
     height: 30px;
     font-size: 25px;
     text-align: center;
+}
+
+.square {
+    background-color: white;
+    border: 1px solid black;
+    width: 40px;
+    height: 40px;
+}
+
+.gameboard {
+    display:grid;
+    width: 400px;
+    height:400px;
+    grid-template-columns: repeat(10, 40px);
+    grid-template-rows: repeat(10, 40px);
+    outline: 5px solid black;
 }
