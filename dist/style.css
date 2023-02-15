@@ -58,10 +58,18 @@ h1 {
 }
 
 .gameboard {
+    position: relative;
     display:grid;
     width: 400px;
     height:400px;
     grid-template-columns: repeat(10, 40px);
     grid-template-rows: repeat(10, 40px);
     outline: 5px solid black;
+}
+
+.name {
+    position: absolute;
+    top: -55px;
+    font-size: 40px;
+    font-weight: bold;
 }

@@ -6,6 +6,8 @@ import { player } from './player';
 const game = document.querySelector('.game');
 let gameb1;
 let gameb2;
+let gameb1squares;
+let gameb2squares;
 
 function gameSetUpPage() {
     let nameInput = document.createElement('input');
@@ -23,7 +25,7 @@ function gameSetUpPage() {
     game.classList.add('setup');
 }
 
-function gamePage() {
+function gamePage(name) {
     while (game.firstChild) {
         game.firstChild.remove();
     }
@@ -36,12 +38,24 @@ function gamePage() {
     gameb1.className = 'gameboard';
     gameb2.className = 'gameboard';
 
+
+    let name1 = document.createElement('div');
+    let name2 = document.createElement('div');
+    name1.classList.add('name');
+    name2.classList.add('name');
+
+    name1.innerHTML = name;
+    name2.innerHTML = 'Computer';
+
+    gameb1.appendChild(name1);
+    gameb2.appendChild(name2);
+
     for (let i = 1; i<= 10; i++) {
         for (let j = 1; j <= 10; j++) {
             let newsquare = document.createElement('div');
-            newsquare.x = i;
-            newsquare.y = j;
-            newsquare.className = 'square'
+            newsquare.setAttribute('x', j);
+            newsquare.setAttribute('y', i);
+            newsquare.className = 'square';
             gameb1.appendChild(newsquare);
         }
     }
@@ -49,16 +63,19 @@ function gamePage() {
     for (let i = 1; i<= 10; i++) {
         for (let j = 1; j <= 10; j++) {
             let newsquare = document.createElement('div');
-            newsquare.x = i;
-            newsquare.y = j;
-            newsquare.className = 'square'
+            newsquare.setAttribute('x', j);
+            newsquare.setAttribute('y', i);
+            newsquare.className = 'square';
             gameb2.appendChild(newsquare);
         }
     }
 
+
     game.appendChild(gameb1);
     game.appendChild(gameb2);
-    
+
+    gameb1squares = gameb1.querySelectorAll('.square');
+    gameb2squares = gameb2.querySelectorAll('.squares');
 }
 
 function startGame(name) {
@@ -70,7 +87,7 @@ function startGame(name) {
     player1.playerboard = gameboard1;
     computer.playerboard = gameboard2;
 
-    gamePage(name);
+    gamePage(name, gameboard1, gameboard2);
 }
 
 gameSetUpPage();
