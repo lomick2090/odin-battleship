@@ -76,6 +76,19 @@ function startGame(name) {
     gameboard2 = gameboard();
     let ships = [ship(2), ship(2), ship(3), ship(4), ship(5)];
     
+    let cruiser1 = document.createElement('img');
+    cruiser1.id = 'cruiser1';
+    let cruiser2 = document.createElement('img');
+    cruiser2.id = 'cruiser2';
+    let submarine = document.createElement('img');
+    submarine.id = 'submarine';
+    let carrier = document.createElement('img');
+    carrier.id = 'carrier';
+    let battleship = document.createElement('img');
+    battleship.id = 'battleship';
+
+    let shipimages = [cruiser1, cruiser2, submarine, carrier, battleship]
+    
 
     player1.playerboard = gameboard1;
     computer.playerboard = gameboard2;
@@ -90,15 +103,55 @@ function startGame(name) {
     gameb1 = document.createElement('div');
     gameb1.className = 'gameboard';
 
+    function displayShip() {
+        while (instructions.firstChild) {
+            instructions.firstChild.remove();
+        }
+
+        let shipDiv = document.createElement('div');
+        shipDiv.classList.add('shipdiv');
+
+        let shipVisual = document.createElement('div');
+        if (orientation == 'vertical') {
+            shipimages[0].style.transform = 'rotate(90deg) translateY(-40px)';
+            shipimages[0].style.transformOrigin = 'top left';
+        } else {
+            shipimages[0].style.transform = '';
+        }
+        shipVisual.appendChild(shipimages[0]);
+
+        let shipDirections = document.createElement('div');
+        let shipOrientation = document.createElement('button');
+        shipOrientation.innerHTML = orientation;
+
+        shipDirections.innerHTML = 'Click on the board to place this ship';
+        shipOrientation.addEventListener('click', () => {
+            if (orientation == 'vertical') {
+                orientation = 'horizontal';
+                displayShip();
+            } else {
+                orientation = 'vertical';
+                displayShip();
+            }
+        });
+
+        shipDiv.appendChild(shipDirections);
+        shipDiv.appendChild(shipVisual);
+        shipDiv.appendChild(shipOrientation);
+        instructions.appendChild(shipDiv)
+    }
+
     function addShip(newsquare)  {
         if (ships.length > 0) {
-            console.log(ships)
-            console.log(newsquare)
             if (gameboard1.checkShipPlacement(ships[0], [newsquare.getAttribute('x'), newsquare.getAttribute('y')], orientation)) {
                 gameboard1.placeShip(ships[0], [newsquare.getAttribute('x'), newsquare.getAttribute('y')], orientation);
+                newsquare.appendChild(shipimages[0]);
+                shipimages.shift();
                 ships.shift();
                 if (ships.length == 0) {
-                    gamePage()
+                    gamePage();
+                } else {
+                    displayShip();
                 }
             }
         }
@@ -120,11 +173,12 @@ function startGame(name) {
     gameb1squares = gameb1.querySelectorAll('.square');
 
     let instructions = document.createElement('div');
-    instructions.innerHTML = "Place your ships!";
+   // instructions.innerHTML = "Place your ships!";
     instructions.classList.add('instructions');
 
     game.appendChild(instructions);
     game.appendChild(gameb1);
+    displayShip();
 
 }
 

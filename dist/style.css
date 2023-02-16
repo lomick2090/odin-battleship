@@ -55,6 +55,7 @@ h1 {
     border: 1px solid black;
     width: 40px;
     height: 40px;
+    overflow:visible;
 }
 
 .gameboard {
@@ -79,4 +80,48 @@ h1 {
     grid-template-rows: 200px 400px 200px;
     align-items: center;
     justify-items: center;
+}
+
+.instructions {
+    position: relative;
+    width: 400px
+}
+
+.shipdiv {
+    position:absolute;
+}
+
+#cruiser1 {
+    height: 40px;
+    width: 80px;
+    background-image: url(./ships/cruiser1.png);
+    background-size:  80px 40px;
+}
+
+#cruiser2 {
+    height: 40px;
+    width: 80px;
+    background-image: url(./ships/cruiser2.png);
+    background-size:  80px 40px;
+}
+
+#submarine {
+    height: 40px;
+    width: 120px;
+    background-image: url(./ships/submarine.png);
+    background-size:  120px 40px;
+}
+
+#carrier {
+    height: 40px;
+    width: 160px;
+    background-image: url(./ships/carrier.png);
+    background-size:  160px 40px;
+}
+
+#battleship {  
+    height: 40px;
+    width: 200px;
+    background-image: url(./ships/battleship.png);
+    background-size:  200px 40px;
 }

@@ -8,8 +8,8 @@ let gameboard = () => {
                 let space = {
                     contents: null,
                     hit: false,
-                    x: i,
-                    y: j
+                    x: parseInt(i),
+                    y: parseInt(j)
                 }
                 board.push(space)
             }
@@ -42,16 +42,20 @@ let gameboard = () => {
         let space = returnSpace(coordinates);
         let answer = true;
 
-        for (let i = 1; i < ship.shipLength; i++) {
-            if (space.contents != null) {
-                answer = false;
-            }
-            if (orientation == 'horizontal') {
-                coordinates[0] = coordinates[0]++;
-                space = returnSpace(coordinates);
+        for (let i = 0; i < ship.shipLength; i++) {
+            if (coordinates[0] > 10 || coordinates[1] > 10) {
+                answer = false
             } else {
-                coordinates[1] = coordinates[1]++;
-                space = returnSpace(coordinates);
+                if (space.contents != null) {
+                    answer = false;
+                }
+                if (orientation == 'horizontal') {
+                    coordinates[0]++;
+                    space = returnSpace(coordinates);
+                } else {
+                    coordinates[1]++;
+                    space = returnSpace(coordinates);
+                }
             }
         };
         return answer;
@@ -60,20 +64,23 @@ let gameboard = () => {
     function placeShip(ship, coordinates, orientation) {
         let space = returnSpace(coordinates);
         space.contents = ship;
-        console.log(space.contents)
         ships.push(ship)
 
         for (let i = 1; i < ship.shipLength; i++) {
             if (orientation == 'horizontal') {
-                coordinates[0] = coordinates[0]++;
+                
+                coordinates[0]++;
                 space = returnSpace(coordinates);
-                space.contents = ship;
-            } else {
                 console.log(space)
-                console.log(coordinates)
-                coordinates[1] = coordinates[1]++;
-                space = returnSpace(coordinates);
                 space.contents = ship;
+                console.log(space)
+            } else {
+                
+                coordinates[1]++;
+                space = returnSpace(coordinates);
+                console.log(space)
+                space.contents = ship;
+                console.log(space)
             }
         }
     };
