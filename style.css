@@ -76,7 +76,7 @@ h1 {
 
 .shipplacement {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 200px 400px 200px;
     align-items: center;
     justify-items: center;
 }
