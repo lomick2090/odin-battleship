@@ -12,6 +12,7 @@ let player1;
 let computer;
 let gameboard1;
 let gameboard2;
+let orientation = 'vertical';
 
 function gameSetUpPage() {
     let nameInput = document.createElement('input');
@@ -34,7 +35,7 @@ function gamePage() {
         game.firstChild.remove();
     }
 
-    game.classList.remove('shipsetup');
+    game.classList.remove('shipplacement');
 
    
     gameb2 = document.createElement('div');
@@ -74,8 +75,7 @@ function startGame(name) {
     gameboard1 = gameboard();
     gameboard2 = gameboard();
     let ships = [ship(2), ship(2), ship(3), ship(4), ship(5)];
-    let i = 0;
-    let orientation = 'vertical';
+    
 
     player1.playerboard = gameboard1;
     computer.playerboard = gameboard2;
@@ -90,12 +90,14 @@ function startGame(name) {
     gameb1 = document.createElement('div');
     gameb1.className = 'gameboard';
 
-    function addShip()  {
-        if (i < ships.length) {
-            if (gameboard1.checkShipPlacement(ships[i], [this.getAttribute('x'), this.getAttribute('y')], orientation)) {
-                gameboard1.placeShip(ships[i], [this.getAttribute('x'), this.getAttribute('y')], orientation);
-                i++;
-                if (i == ships.length) {
+    function addShip(newsquare)  {
+        if (ships.length > 0) {
+            console.log(ships)
+            console.log(newsquare)
+            if (gameboard1.checkShipPlacement(ships[0], [newsquare.getAttribute('x'), newsquare.getAttribute('y')], orientation)) {
+                gameboard1.placeShip(ships[0], [newsquare.getAttribute('x'), newsquare.getAttribute('y')], orientation);
+                ships.shift();
+                if (ships.length == 0) {
                     gamePage()
                 }
             }
@@ -109,7 +111,7 @@ function startGame(name) {
             newsquare.setAttribute('x', j);
             newsquare.setAttribute('y', i);
             newsquare.className = 'square';
-            newsquare.addEventListener('click', () => addShip)
+            newsquare.addEventListener('click', () => addShip(newsquare))
             gameb1.appendChild(newsquare);
         }
     }

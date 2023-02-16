@@ -47,10 +47,10 @@ let gameboard = () => {
                 answer = false;
             }
             if (orientation == 'horizontal') {
-                coordinates[0] = coordinates[0] + 1;
+                coordinates[0] = coordinates[0]++;
                 space = returnSpace(coordinates);
             } else {
-                coordinates[1] = coordinates[1] + 1;
+                coordinates[1] = coordinates[1]++;
                 space = returnSpace(coordinates);
             }
         };
@@ -60,15 +60,18 @@ let gameboard = () => {
     function placeShip(ship, coordinates, orientation) {
         let space = returnSpace(coordinates);
         space.contents = ship;
+        console.log(space.contents)
         ships.push(ship)
 
         for (let i = 1; i < ship.shipLength; i++) {
             if (orientation == 'horizontal') {
-                coordinates[0] = coordinates[0] + 1;
+                coordinates[0] = coordinates[0]++;
                 space = returnSpace(coordinates);
                 space.contents = ship;
             } else {
-                coordinates[1] = coordinates[1] + 1;
+                console.log(space)
+                console.log(coordinates)
+                coordinates[1] = coordinates[1]++;
                 space = returnSpace(coordinates);
                 space.contents = ship;
             }
