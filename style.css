@@ -77,51 +77,70 @@ h1 {
 
 .shipplacement {
     grid-template-columns: 1fr;
-    grid-template-rows: 200px 400px 200px;
-    align-items: center;
+    grid-template-rows: 300px 400px;
+    align-items:baseline;
     justify-items: center;
+    gap:40px;
+    font-weight: bold;
+    font-size:32px;
 }
 
 .instructions {
+    padding-top:40px;
     position: relative;
     width: 400px
 }
 
 .shipdiv {
+    position: relative;
+    display: grid;
+    justify-items: left;
+}
+
+.shipdiv > button {
+    padding: 8px;
+    font-weight: bold;
+
+}
+
+.shipvisual {
     position:absolute;
+    right:200px;
+    top:80px;
+    width:39px;
 }
 
 #cruiser1 {
-    height: 40px;
-    width: 80px;
+    height: 39px;
+    width: 79px;
     background-image: url(./ships/cruiser1.png);
-    background-size:  80px 40px;
+    background-size:  79px 39px;
 }
 
 #cruiser2 {
-    height: 40px;
-    width: 80px;
+    height: 39px;
+    width: 79px;
     background-image: url(./ships/cruiser2.png);
-    background-size:  80px 40px;
+    background-size:  79px 39px;
 }
 
 #submarine {
-    height: 40px;
-    width: 120px;
+    height: 39px;
+    width: 119px;
     background-image: url(./ships/submarine.png);
-    background-size:  120px 40px;
+    background-size:  119px 39px;
 }
 
 #carrier {
-    height: 40px;
-    width: 160px;
+    height: 39px;
+    width: 159px;
     background-image: url(./ships/carrier.png);
-    background-size:  160px 40px;
+    background-size:  159px 39px;
 }
 
 #battleship {  
-    height: 40px;
-    width: 200px;
+    height: 39px;
+    width: 199px;
     background-image: url(./ships/battleship.png);
-    background-size:  200px 40px;
+    background-size:  199px 39px;
 }
