@@ -12,7 +12,7 @@ let player1;
 let computer;
 let gameboard1;
 let gameboard2;
-let orientation = 'vertical';
+let orientation = 'horizontal';
 
 function gameSetUpPage() {
     let nameInput = document.createElement('input');
@@ -112,11 +112,12 @@ function startGame(name) {
         shipDiv.classList.add('shipdiv');
 
         let shipVisual = document.createElement('div');
+        shipVisual.classList.add('shipvisual')
         if (orientation == 'vertical') {
-            shipimages[0].style.transform = 'rotate(90deg) translateY(-40px)';
+            shipimages[0].style.transform = 'rotate(90deg) translateY(-39px)';
             shipimages[0].style.transformOrigin = 'top left';
         } else {
-            shipimages[0].style.transform = '';
+            shipimages[0].style.transform = 'rotate(0deg)';
         }
         shipVisual.appendChild(shipimages[0]);
 
