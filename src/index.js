@@ -211,7 +211,27 @@ function gamePage() {
         }
     }
 
-    gameboard2.placeShip(ship(3), [3,3], 'vertical');
+    function createComputerBoard() {
+        let computerShips = [ship(2), ship(2), ship(3), ship(4), ship(5)];
+
+        while (computerShips.length > 0) {
+            let x = Math.floor(Math.random()*10) + 1
+            let y = Math.floor(Math.random()*10) + 1
+            let randoOrient = () => { return (Math.round(Math.random()) > 0) ?  'vertical' : 'horizontal'};
+            let computerOrient = randoOrient();
+            while (!(gameboard2.checkShipPlacement(computerShips[0], [x,y], computerOrient))) {
+                x = Math.floor(Math.random()*10) + 1;
+                y = Math.floor(Math.random()*10) + 1;
+                computerOrient = randoOrient()
+            }
+            console.log(computerShips[0],[x,y])
+            gameboard2.placeShip(computerShips[0], [x,y], computerOrient);
+            computerShips.shift();
+        }
+
+    }
+
+    createComputerBoard();
 
     game.appendChild(gameb1);
     game.appendChild(gameb2);
