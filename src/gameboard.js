@@ -71,16 +71,16 @@ let gameboard = () => {
                 
                 coordinates[0]++;
                 space = returnSpace(coordinates);
-                console.log(space)
+
                 space.contents = ship;
-                console.log(space)
+
             } else {
                 
                 coordinates[1]++;
                 space = returnSpace(coordinates);
-                console.log(space)
+
                 space.contents = ship;
-                console.log(space)
+
             }
         }
     };
@@ -90,12 +90,15 @@ let gameboard = () => {
         if (space.hit == false) {
             space.hit = true;
         } else {
-            console.log("error, space already attacked");
+            alert("Space already attacked!");
             return;
         };
 
         if (space.contents) {
             space.contents.hit();
+            return true;
+        } else {
+            return false;
         };
     };
 

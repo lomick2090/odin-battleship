@@ -2,7 +2,6 @@ import { ship } from './ship';
 import { gameboard } from './gameboard';
 import { player } from './player';
 
-
 const game = document.querySelector('.game');
 let gameb1;
 let gameb2;
@@ -28,45 +27,6 @@ function gameSetUpPage() {
     
     game.appendChild(submit);
     game.classList.add('setup');
-}
-
-function gamePage() {
-    while (game.firstChild) {
-        game.firstChild.remove();
-    }
-
-    game.classList.remove('shipplacement');
-
-   
-    gameb2 = document.createElement('div');
-    gameb2.className = 'gameboard';
-
-
-    let name1 = document.createElement('div');
-    let name2 = document.createElement('div');
-    name1.classList.add('name');
-    name2.classList.add('name');
-
-    name1.innerHTML = player1.name;
-    name2.innerHTML = computer.name;
-
-    gameb1.appendChild(name1);
-    gameb2.appendChild(name2);
-
-    for (let i = 1; i<= 10; i++) {
-        for (let j = 1; j <= 10; j++) {
-            let newsquare = document.createElement('div');
-            newsquare.setAttribute('x', j);
-            newsquare.setAttribute('y', i);
-            newsquare.className = 'square';
-            gameb2.appendChild(newsquare);
-        }
-    }
-
-    game.appendChild(gameb1);
-    game.appendChild(gameb2);
-
-    gameb2squares = gameb2.querySelectorAll('.square');
 }
 
 function startGame(name) {
@@ -182,5 +142,82 @@ function startGame(name) {
     displayShip();
 
 }
+
+function gamePage() {
+    while (game.firstChild) {
+        game.firstChild.remove();
+    }
+
+    game.classList.remove('shipplacement');
+
+   
+    gameb2 = document.createElement('div');
+    gameb2.className = 'gameboard';
+
+
+    let name1 = document.createElement('div');
+    let name2 = document.createElement('div');
+    name1.classList.add('name');
+    name2.classList.add('name');
+
+    name1.innerHTML = player1.name;
+    name2.innerHTML = computer.name;
+
+    gameb1.appendChild(name1);
+    gameb2.appendChild(name2);
+
+    function userAttacks(newsquare) {
+        let x = newsquare.getAttribute('x');
+        let y = newsquare.getAttribute('y');
+        let icon = document.createElement('img');
+        newsquare.appendChild(icon);
+        let boardSquare = gameboard2.returnSpace([x,y])
+
+        if(gameboard2.receiveAttack([x,y])) {
+            icon.id = ('hitmarker');
+            if (boardSquare.contents.isSunk) {
+                switch (boardSquare.contents.shipLength) {
+                    case 2:
+                        alert('You sunk their Cruiser!')
+                        break;
+                    case 3:
+                        alert('You sunk their Submarine!')
+                        break;
+                    case 4:
+                        alert('You sunk their Carrier!')
+                        break;
+                    case 5:
+                        alert('You sunk their Battleship!')
+                        break;
+                }
+            }
+
+            if (gameboard2.checkGameEnd()) {
+                alert('You Win!')
+            }
+        } else {
+            icon.id = ('missmarker');
+        }
+    }
+
+    for (let i = 1; i<= 10; i++) {
+        for (let j = 1; j <= 10; j++) {
+            let newsquare = document.createElement('div');
+            newsquare.setAttribute('x', j);
+            newsquare.setAttribute('y', i);
+            newsquare.className = 'square';
+            newsquare.addEventListener('click', () => userAttacks(newsquare))
+            gameb2.appendChild(newsquare);
+        }
+    }
+
+    gameboard2.placeShip(ship(3), [3,3], 'vertical');
+
+    game.appendChild(gameb1);
+    game.appendChild(gameb2);
+
+    gameb2squares = gameb2.querySelectorAll('.square');
+}
+
 
 gameSetUpPage();
