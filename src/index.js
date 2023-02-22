@@ -167,13 +167,13 @@ function gamePage() {
     gameb2.appendChild(name2);
 
     function computerAttacks() {
-        let x = Math.round(Math.random() * 10) + 1
-        let y = Math.round(Math.random() * 10) + 1
-        
+        let x = Math.floor(Math.random() * 10) + 1
+        let y = Math.floor(Math.random() * 10) + 1
+        console.log([x,y])
         while (gameboard1.returnSpace([x,y]).hit) {
-            console.log([x,y])
-            x = Math.round(Math.random() * 10) + 1
-            y = Math.round(Math.random() * 10) + 1
+            
+            x = Math.floor(Math.random() * 10) + 1
+            y = Math.floor(Math.random() * 10) + 1
         }
 
         let boardSquare = gameboard1.returnSpace([x,y])
