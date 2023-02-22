@@ -51,8 +51,10 @@ let gameboard = () => {
                 }
                 if (orientation == 'horizontal') {
                     coordinates[0]++;
+                    space = returnSpace(coordinates);
                 } else {
                     coordinates[1]++;
+                    space = returnSpace(coordinates);
                 }
             }
         };

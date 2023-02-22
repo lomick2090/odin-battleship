@@ -166,37 +166,93 @@ function gamePage() {
     gameb1.appendChild(name1);
     gameb2.appendChild(name2);
 
-    function userAttacks(newsquare) {
-        let x = newsquare.getAttribute('x');
-        let y = newsquare.getAttribute('y');
+    function computerAttacks() {
+        let x = Math.round(Math.random() * 10) + 1
+        let y = Math.round(Math.random() * 10) + 1
+        
+        while (gameboard1.returnSpace([x,y]).hit) {
+            console.log([x,y])
+            x = Math.round(Math.random() * 10) + 1
+            y = Math.round(Math.random() * 10) + 1
+        }
+
+        let boardSquare = gameboard1.returnSpace([x,y])
+        let newsquare;
+
+        gameb1squares.forEach(square => {
+            if (square.getAttribute('x') == x && square.getAttribute('y') == y) {
+                newsquare = square;
+            }
+        });
+
         let icon = document.createElement('img');
         newsquare.appendChild(icon);
-        let boardSquare = gameboard2.returnSpace([x,y])
-
-        if(gameboard2.receiveAttack([x,y])) {
+        if(gameboard1.receiveAttack([x,y])) {
             icon.id = ('hitmarker');
             if (boardSquare.contents.isSunk) {
                 switch (boardSquare.contents.shipLength) {
                     case 2:
-                        alert('You sunk their Cruiser!')
+                        alert('The computer sunk your Cruiser!')
                         break;
                     case 3:
-                        alert('You sunk their Submarine!')
+                        alert('The computer sunk your Submarine!')
                         break;
                     case 4:
-                        alert('You sunk their Carrier!')
+                        alert('The computer sunk your Carrier!')
                         break;
                     case 5:
-                        alert('You sunk their Battleship!')
+                        alert('The computer sunk your Battleship!')
                         break;
                 }
             }
 
-            if (gameboard2.checkGameEnd()) {
-                alert('You Win!')
+            if (gameboard1.checkGameEnd()) {
+                alert('The computer wins .......')
             }
         } else {
             icon.id = ('missmarker');
+        }
+
+    }
+
+    function userAttacks(newsquare) {
+        let x = newsquare.getAttribute('x');
+        let y = newsquare.getAttribute('y');
+
+        let boardSquare = gameboard2.returnSpace([x,y])
+        if (boardSquare.hit == true) {
+            alert('Square has already been hit!')
+        } else {
+            let icon = document.createElement('img');
+            newsquare.appendChild(icon);
+            if(gameboard2.receiveAttack([x,y])) {
+                icon.id = ('hitmarker');
+                if (boardSquare.contents.isSunk) {
+                    switch (boardSquare.contents.shipLength) {
+                        case 2:
+                            alert('You sunk their Cruiser!')
+                            break;
+                        case 3:
+                            alert('You sunk their Submarine!')
+                            break;
+                        case 4:
+                            alert('You sunk their Carrier!')
+                            break;
+                        case 5:
+                            alert('You sunk their Battleship!')
+                            break;
+                    }
+                }
+
+                if (gameboard2.checkGameEnd()) {
+                    alert('You Win!')
+                } else {
+                    computerAttacks();
+                }
+            } else {
+                icon.id = ('missmarker');
+                computerAttacks();
+            }
         }
     }
 
@@ -206,7 +262,7 @@ function gamePage() {
             newsquare.setAttribute('x', j);
             newsquare.setAttribute('y', i);
             newsquare.className = 'square';
-            newsquare.addEventListener('click', () => userAttacks(newsquare))
+            newsquare.addEventListener('click', () => userAttacks(newsquare));
             gameb2.appendChild(newsquare);
         }
     }
@@ -224,7 +280,7 @@ function gamePage() {
                 y = Math.floor(Math.random()*10) + 1;
                 computerOrient = randoOrient()
             }
-            console.log(computerShips[0],[x,y])
+            console.log(computerShips[0],[x,y],computerOrient)
             gameboard2.placeShip(computerShips[0], [x,y], computerOrient);
             computerShips.shift();
         }
