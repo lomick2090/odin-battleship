@@ -56,10 +56,11 @@ h1 {
     width: 40px;
     height: 40px;
     overflow:visible;
+    position: relative;
 }
 
 .gameboard {
-    position: relative;
+    position:relative;
     display:grid;
     width: 400px;
     height:400px;
@@ -110,7 +111,13 @@ h1 {
     width:39px;
 }
 
+img {
+    border:none;
+}
+
 #cruiser1 {
+    position:absolute;
+    z-index: 1;
     height: 39px;
     width: 79px;
     background-image: url(./ships/cruiser1.png);
@@ -118,6 +125,8 @@ h1 {
 }
 
 #cruiser2 {
+    position:absolute;
+    z-index: 1;
     height: 39px;
     width: 79px;
     background-image: url(./ships/cruiser2.png);
@@ -125,6 +134,8 @@ h1 {
 }
 
 #submarine {
+    position:absolute;
+    z-index: 1;
     height: 39px;
     width: 119px;
     background-image: url(./ships/submarine.png);
@@ -132,6 +143,8 @@ h1 {
 }
 
 #carrier {
+    position:absolute;
+    z-index: 1;
     height: 39px;
     width: 159px;
     background-image: url(./ships/carrier.png);
@@ -139,6 +152,8 @@ h1 {
 }
 
 #battleship {  
+    position:absolute;
+    z-index: 1;
     height: 39px;
     width: 199px;
     background-image: url(./ships/battleship.png);
@@ -146,17 +161,23 @@ h1 {
 }
 
 #hitmarker {
-    height:40px;
-    width: 40px;
+    position:absolute;
+    z-index: 2;
+    height:39px;
+    width: 39px;
     background-image: url(./icons/x.png);
-    background-size: 40px 40px;
+    background-size: 39px 39px;
     z-index: 1;
+    transform: rotate(0deg);
 }
 
 #missmarker {
-    height:40px;
-    width: 40px;
+    position:absolute;
+    z-index: 2;
+    height: 39px;
+    width: 39px;
     background-image: url(./icons/dot.png);
-    background-size: 40px 40px;
+    background-size: 39px 39px;
     z-index: 1;
+    transform: rotate(0deg);
 }
