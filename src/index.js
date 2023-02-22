@@ -169,8 +169,7 @@ function gamePage() {
     function computerAttacks() {
         let x = Math.floor(Math.random() * 10) + 1
         let y = Math.floor(Math.random() * 10) + 1
-        console.log([x,y])
-        while (gameboard1.returnSpace([x,y]).hit) {
+       while (gameboard1.returnSpace([x,y]).hit) {
             
             x = Math.floor(Math.random() * 10) + 1
             y = Math.floor(Math.random() * 10) + 1
@@ -208,6 +207,7 @@ function gamePage() {
 
             if (gameboard1.checkGameEnd()) {
                 alert('The computer wins .......')
+                gameEndPage();
             }
         } else {
             icon.id = ('missmarker');
@@ -246,6 +246,7 @@ function gamePage() {
 
                 if (gameboard2.checkGameEnd()) {
                     alert('You Win!')
+                    gameEndPage();
                 } else {
                     computerAttacks();
                 }
@@ -293,6 +294,25 @@ function gamePage() {
     game.appendChild(gameb2);
 
     gameb2squares = gameb2.querySelectorAll('.square');
+}
+
+function gameEndPage() {
+    while (game.firstChild) {
+        game.firstChild.remove();
+    }
+
+    let header = document.createElement('h1');
+    header.innerHTML = "Want to play again?"
+
+    game.appendChild(header);
+
+    let restart = document.createElement('button');
+    restart.innerHTML = 'RESTART';
+
+    restart.addEventListener('click', () => startGame(player1.name));
+
+
+    game.appendChild(restart);
 }
 
 
